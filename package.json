@@ -23,7 +23,8 @@
   "files": [
     "lib",
     "dist",
-    "es"
+    "es",
+    "README.md"
   ],
   "bugs": "https://github.com/LimMem/SelectTree/issues",
   "author": "LimMem <1270253618@qq.com> (https://github.com/LimMem)",
@@ -45,6 +46,7 @@
   },
   "dependencies": {
     "antd-mobile": "^2.3.4",
+    "rc-popup": "^0.1.1",
     "react": "^16.12.0",
     "swiper": "6.8.4"
   },
@@ -52,8 +54,12 @@
     "tree",
     "select"
   ],
+  "resolutions": {
+    "@types/react": "^16.14.2"
+  },
   "devDependencies": {
     "@umijs/test": "^3.0.5",
+    "babel-plugin-version": "^0.2.3",
     "dumi": "^1.1.26",
     "dumi-theme-mobile": "^1.1.9",
     "father-build": "^1.19.1",
