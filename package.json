@@ -2,7 +2,7 @@
   "private": false,
   "name": "@limmem/selecttree",
   "description": "基于react的一款移动端树状选择组件",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
