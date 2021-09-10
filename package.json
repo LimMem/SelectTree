@@ -1,6 +1,6 @@
 {
-  "private": true,
-  "name": "rc-select-tree",
+  "private": false,
+  "name": "@limmem/selecttree",
   "description": "基于react的一款移动端树状选择组件",
   "version": "0.1.0",
   "scripts": {
@@ -14,9 +14,9 @@
     "test": "umi-test",
     "test:coverage": "umi-test --coverage"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "typings": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "es/index.d.ts",
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
