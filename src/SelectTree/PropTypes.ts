@@ -1,5 +1,9 @@
 type noop = () => void;
 
+export interface SelectTreeAttributesMethod {
+  getValues: () => SelectTreeDataSource[];
+}
+
 export interface SelectTreeDataSource {
   /**
    * @description 节点唯一标识符
@@ -48,6 +52,12 @@ export interface SelectTreeBase {
    * @description 点击ok按钮时回调
    */
   onOk?: (value: SelectTreeDataSource) => void;
+
+  /**
+   * @description 主题颜色
+   * @default #1989fa
+   */
+  color?: string;
 }
 
 // 单选属性定义

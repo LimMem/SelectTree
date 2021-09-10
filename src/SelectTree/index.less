@@ -1,8 +1,32 @@
 @import '~antd-mobile/es/style/index.less';
 @import '~swiper/swiper.less';
 
+.select-tree {
+  display: flex;
+  flex-direction: column;
+  height: 75vh;
+}
+
+.select-tree-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 48 * @hd;
+  &-title {
+    flex: 1;
+    padding-left: 15 * @hd;
+    color: #323233;
+    font-size: 16 * @hd;
+    font-weight: 500;
+  }
+  &-ok {
+    font-size: 14 * @hd;
+    padding: 0 15 * @hd;
+  }
+}
+
 .tree-panel {
-  height: 100%;
+  height: 0;
   flex: 1;
   display: flex;
   flex-direction: column;

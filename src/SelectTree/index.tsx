@@ -1,9 +1,13 @@
-import React, { FC } from 'react';
-import { SelectTreeMultiple, SelectTreeSingle } from './PropTypes';
+import React, { useRef } from 'react';
+import {
+  SelectTreeMultiple,
+  SelectTreeSingle,
+  SelectTreeAttributesMethod,
+} from './PropTypes';
 import TreePanel from './components/TreePanel';
+import Popup from '@limmem/popup';
 import './index.less';
-
-interface SelectTreeProps {}
+import Header from './Header';
 
 const prefixCls = 'select-tree';
 function SelectTree(
@@ -15,8 +19,41 @@ function SelectTree(
 ): React.ReactElement<any, any> | null;
 
 function SelectTree(props: any) {
-  const { title, onOk, onDismiss, show, okText, ...restProps } = props;
-  return <TreePanel {...restProps} />;
+  const treePanelRef = useRef<SelectTreeAttributesMethod>();
+  const {
+    title = '',
+    onOk = () => {},
+    onDismiss = () => {},
+    show = false,
+    okText = '确定',
+    ...restProps
+  } = props;
+
+  const onConfirm = () => {
+    const values = treePanelRef.current?.getValues();
+    if (values && values?.length > 0) {
+      if (props.type === 'multiple') {
+        onOk(values);
+      } else {
+        onOk(values[0]);
+      }
+      onDismiss();
+    }
+  };
+
+  return (
+    <Popup show={show} round onClose={onDismiss}>
+      <div className={prefixCls}>
+        <Header
+          title={title}
+          color={props.color}
+          onOk={onConfirm}
+          okText={okText}
+        />
+        <TreePanel ref={treePanelRef} {...restProps} />
+      </div>
+    </Popup>
+  );
 }
 
 export default SelectTree;

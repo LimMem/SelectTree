@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useImperativeHandle,
+  forwardRef,
+} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {
   SelectTreeSingle,
@@ -16,21 +22,30 @@ interface TreePanelProps extends Omit<SelectTreeSingle, keyof SelectTreeBase> {}
 interface TreePanelMultipleProps
   extends Omit<SelectTreeMultiple, keyof SelectTreeBase> {}
 
-function TreePanel(
+function TreePanel<T>(
   props: TreePanelProps & { children?: any },
+  ref: React.LegacyRef<T> | undefined,
 ): React.ReactElement<any, any> | null;
-function TreePanel(
+function TreePanel<T>(
   props: TreePanelMultipleProps & { children?: any },
+  ref: React.LegacyRef<T> | undefined,
 ): React.ReactElement<any, any> | null;
 
-function TreePanel(props: any) {
-  const { data = [], type, value, onChange = () => {} } = props;
+function TreePanel(props: any, ref: any) {
+  const {
+    data = [],
+    type,
+    value,
+    onChange = () => {},
+    color = '#1989fa',
+  } = props;
   const [val, setVal] = useState<string[]>([]);
   const [totalPages, setTotalPages] = useState<
     (string | SelectTreeDataSource)[]
   >(['请选择']);
   const [currentPage, setCurrentPage] = useState(0);
   const [dataSource, setDataSource] = useState([data]);
+  const [selectValues, setSelectValues] = useState<SelectTreeDataSource[]>([]);
   const swiperRef = useRef<any>(null);
 
   useEffect(() => {
@@ -59,6 +74,7 @@ function TreePanel(props: any) {
     const target: SelectTreeDataSource[] = [];
     getAllValues(target, data);
     onChange(target);
+    setSelectValues(target);
   }, [val, data]);
 
   const replaceChangeData = (item: SelectTreeDataSource) => {
@@ -126,11 +142,16 @@ function TreePanel(props: any) {
     }
   };
 
+  useImperativeHandle(ref, () => ({
+    getValues: () => selectValues,
+  }));
+
   return (
     <div className={prefixCls}>
       <TreeNav
         pages={totalPages}
         currentIndex={currentPage}
+        color={color}
         onChange={idx => {
           setCurrentPage(idx);
           swiperRef.current.slideTo(idx);
@@ -156,6 +177,7 @@ function TreePanel(props: any) {
                       {...item}
                       type={type}
                       selectValue={val}
+                      color={color}
                       onChange={onValueChange}
                     />
                   );
@@ -169,4 +191,4 @@ function TreePanel(props: any) {
   );
 }
 
-export default TreePanel;
+export default forwardRef(TreePanel);

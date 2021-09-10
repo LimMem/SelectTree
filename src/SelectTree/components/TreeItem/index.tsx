@@ -44,6 +44,9 @@ const TreeItem: FC<TreeItemProps> = props => {
   const onSwitchClick = (e: any) => {
     if (Array.isArray(children) && children.length > 0) {
       onChange({ id, value, title, child: children }, 'switch');
+    } else {
+      // 如果没有子元素，直接选中
+      onClick(e);
     }
   };
 
